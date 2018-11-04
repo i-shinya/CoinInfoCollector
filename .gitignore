@@ -1,0 +1,10 @@
+# django用の設定
+*.pyc
+*.pyo
+__pycache__
+db.sqlite3
+
+# vscodeの設定ファイル
+.vscode
+
+# 独自にgitignoreが必要なファイルを追加していく
