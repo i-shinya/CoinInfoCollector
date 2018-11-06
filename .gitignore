@@ -8,3 +8,4 @@ db.sqlite3
 .vscode
 
 # 独自にgitignoreが必要なファイルを追加していく
+/config/dbsettings.py
