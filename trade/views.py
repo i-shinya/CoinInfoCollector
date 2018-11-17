@@ -15,4 +15,3 @@ class HelloApi(APIView):
         return Response(
             {"message": request_data["message"]}, status=status.HTTP_201_CREATED
         )
-
