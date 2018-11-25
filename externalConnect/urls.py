@@ -1,7 +1,5 @@
 from django.urls import path
+from . import apis
 
-from . import views
-
-
-urlpatterns = [path("external/", views.ExternalApi.as_view(), name="extermal-test")]
+urlpatterns = [path("get_market/", apis.GetMarketApi.as_view(), name="extermal-test")]
 

@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class TradeCode(Enum):
-    BIT_FLYER = ("BIT_FLYER", "bit_flyer")
-    ZAIF = ("ZAIF", "zaif")
+    BIT_FLYER = ("BIT_FLYER", "ビットフライヤー")
+    ZAIF = ("ZAIF", "ザイフ")
 
 
 class CoinType(Enum):
