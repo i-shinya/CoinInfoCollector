@@ -4,11 +4,12 @@ from rest_framework.response import Response
 
 from rest_framework import status
 from mymodule.myenums import TradeCode
-
+from trade.models import TradeManage, UserInfo
 
 # Create your views here.
 class HelloApi(APIView):
     def get(self, request, format=None):
+        user = UserInfo.objects.filter(id=1)
         return Response(
             {"message": TradeCode.BIT_FLYER.value}, status=status.HTTP_200_OK
         )
