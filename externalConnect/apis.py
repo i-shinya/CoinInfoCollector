@@ -13,6 +13,7 @@ from pymongo import MongoClient
 from externalConnect.external import ExternalConnectAdapter
 from trade.models import TradeManage, UserInfo
 from mymodule.myenums import TradeCode, CoinType, TradeStatus
+from externalConnect.models import MongoModel
 
 # ビットフライヤーからマーケット情報を取得する
 class GetMarketApi(APIView):
@@ -35,34 +36,42 @@ class MongoTestApi(APIView):
 
         # 自身の売買情報を取得する
         trade = list(TradeManage.objects.filter(tradeStatus=TradeStatus.ORDER.name))
-        orderExistFlag = False
+        orderExistFlag = False  # 注文存在フラグ
         # 現在注文中の取引がある場合は反対売買するか判定する
         if len(trade) == 0:
             print("tradeManage is not exist")
             orderExistFlag = True
 
         datetime_now = datetime.datetime.now()
-        date = datetime_now.date
-        time = datetime_now.time
+        date = datetime_now.strftime("%Y%m%d")
+        time = datetime_now.strftime("%H:%M:%S")
 
-        # TODO ビットコインのボードの現在状況と価格を取得する
-        response = ExternalConnectAdapter.getBoard()
-        data = dict()
-        data["mid_price"] = response.json()["mid_price"]
-        data["date"] = str(date)
-        data["time"] = str(time)
-        data["bids"] = response.json()["bids"]
-        data["asks"] = response.json()["asks"]
-        dataList = [data]
-        result = collection.insert_many(dataList)
+        # ビットコインのボードの現在状況と価格を取得する
+        # 例外処理をする
+        try:
+            coinType = CoinType.FX_BTC_JPY
+            boardRes = ExternalConnectAdapter.getBoard(coinType.name)
+            tickerRes = ExternalConnectAdapter.getTicker(coinType.name)
 
-        # TODO DBへ保存するデータを生成する to mongo
+            # DBへ保存するデータを生成する to mongo
+            data = MongoModel()
+            data.setCommonInfo(coinType, date, time)
+            data.setBoardInfo(boardRes)
+            data.setTickerInfo(tickerRes)
 
-        # TODO 売買判定を行う
+            # DBへ保存する
+            dataList = [data.coinInfoDict]
+            result = collection.insert_many(dataList)
 
-        # TODO 売買のリクエストを行う
+            # TODO 売買判定を行う
 
-        # TODO 結果をDBへ登録する
+            # TODO 売買のリクエストを行う
 
-        # 例外がない場合はHTTPステータス200を返却する
-        return Response(status=status.HTTP_200_OK)
+            # TODO 結果をDBへ登録する
+
+            # 例外がない場合はHTTPステータス200を返却する
+            return Response(status=status.HTTP_200_OK)
+        except RuntimeError:
+            # API接続エラーの際は500エラーを返却する
+            return Response(status=status.HTTP_500_NG)
+

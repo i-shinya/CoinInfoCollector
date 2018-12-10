@@ -7,7 +7,8 @@ class TradeCode(Enum):
 
 
 class CoinType(Enum):
-    BIT_COIN = ("BIT_COIN", "ビットコイン")
+    BTC_JPY = ("BTC_JPY", "ビットコイン")
+    FX_BTC_JPY = ("FX_BTC_JPY", "FXビットコイン")
 
 
 class TradeStatus(Enum):

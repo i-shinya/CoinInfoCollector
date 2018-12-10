@@ -7,17 +7,20 @@ rootUrl = "https://api.bitflyer.com/"
 # 外部接続のアダプタークラス
 # Baseアダプターを継承
 class ExternalConnectAdapter(BaseAdapter):
-    def getMarkets():
-        path = rootUrl + "v1/getmarkets"  # 取得先のURL
-        response = BaseAdapter.getRequest(path)
+    # マーケットの通貨情報とかを取得するメソッド（たぶん使わない）
+    def getMarkets(productCode=""):
+        path = rootUrl + "v1/getmarkets/"  # マーケット情報取得先のURL
+        response = BaseAdapter.getRequest(path, productCode)
         return response
 
-    def getBoard():
-        path = rootUrl + "v1/getboard"
-        response = BaseAdapter.getRequest(path)
+    # マーケットのボード情報を取得するメソッド
+    def getBoard(productCode=""):
+        path = rootUrl + "v1/getboardfdsafdsafds/"
+        response = BaseAdapter.getRequest(path, productCode)
         return response
 
-    def getTicker():
-        path = rootUrl + "v1/getticker"
-        response = BaseAdapter.getRequest(path)
+    # マーケットのティッカー情報を取得するメソッド
+    def getTicker(productCode=""):
+        path = rootUrl + "v1/getticker/"
+        response = BaseAdapter.getRequest(path, productCode)
         return response
