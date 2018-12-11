@@ -10,7 +10,7 @@ import bson
 import datetime
 from pymongo import MongoClient
 
-from externalConnect.external import ExternalConnectAdapter
+from externalConnect.external import ExternalConnector
 from trade.models import TradeManage, UserInfo
 from mymodule.myenums import TradeCode, CoinType, TradeStatus
 from externalConnect.models import MongoModel
@@ -18,10 +18,10 @@ from externalConnect.models import MongoModel
 # ビットフライヤーからマーケット情報を取得する
 class GetMarketApi(APIView):
     def get(self, request, format=None):
-        response = ExternalConnectAdapter.getMarkets()
+        response = ExternalConnector.getMarkets()
         print(response.json())
         str1 = response.json()[0]
-        response = ExternalConnectAdapter.getBoard()
+        response = ExternalConnector.getBoard()
         print(response.json())
         str = response.json()["mid_price"]
         return Response(response.json(), status=status.HTTP_200_OK)
@@ -50,8 +50,8 @@ class MongoTestApi(APIView):
         # 例外処理をする
         try:
             coinType = CoinType.FX_BTC_JPY
-            boardRes = ExternalConnectAdapter.getBoard(coinType.name)
-            tickerRes = ExternalConnectAdapter.getTicker(coinType.name)
+            boardRes = ExternalConnector.getBoard(coinType.name)
+            tickerRes = ExternalConnector.getTicker(coinType.name)
 
             # DBへ保存するデータを生成する to mongo
             data = MongoModel()
@@ -73,5 +73,5 @@ class MongoTestApi(APIView):
             return Response(status=status.HTTP_200_OK)
         except RuntimeError:
             # API接続エラーの際は500エラーを返却する
-            return Response(status=status.HTTP_500_NG)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
