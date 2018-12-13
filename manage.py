@@ -2,13 +2,14 @@
 import os
 import sys
 import pymysql
-
-pymysql.install_as_MySQLdb()
-
 import logging
-l = logging.getLogger('django.db.backends')
-l.setLevel(logging.DEBUG)
-l.addHandler(logging.StreamHandler())
+
+from mymodule.mongoRepository.mongoDaoBase import MongoDaoBase
+
+# mysqlと接続する
+pymysql.install_as_MySQLdb()
+# MongoDbと接続する
+MongoDaoBase.connectMongo()
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
