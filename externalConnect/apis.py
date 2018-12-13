@@ -33,11 +33,6 @@ class GetMarketApi(APIView):
 
 class MongoTestApi(APIView):
     def get(self, request, format=None):
-        # mongoデータベースとコレクションへ接続する
-        # client = MongoClient("localhost", 27017)
-        # db = client["test_database"]
-        # collection = db["test"]
-
         # 自身の売買情報を取得する
         trade = list(TradeManage.objects.filter(tradeStatus=TradeStatus.ORDER.name))
         orderExistFlag = False  # 注文存在フラグ
