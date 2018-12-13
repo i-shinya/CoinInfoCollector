@@ -15,6 +15,9 @@ from externalConnect.external import ExternalConnector
 from trade.models import TradeManage, UserInfo
 from mymodule.myenums import TradeCode, CoinType, TradeStatus
 from externalConnect.models import MongoModel
+from mymodule.mongoRepository.mongoDaoBase import MongoDaoBase
+
+# from mymodule.mongoRepository.tradeHistDao import TradeHistDao
 
 # ビットフライヤーからマーケット情報を取得する
 class GetMarketApi(APIView):
@@ -57,6 +60,7 @@ class MongoTestApi(APIView):
 
             # DBへ保存する
             dataList = [data.coinInfoDict]
+            collection = MongoDaoBase.collection
             result = collection.insert_one(data.coinInfoDict)
 
             # TODO 売買判定を行う
@@ -73,4 +77,3 @@ class MongoTestApi(APIView):
         except BulkWriteError:
             # mongodb接続エラーの際は500エラーを返却する
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
