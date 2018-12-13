@@ -10,7 +10,8 @@ class Test:
 
 
 class MongoModel:
-    coinInfoDict = dict()
+    def __init__(self):
+        self.coinInfoDict = dict()
 
     def setCommonInfo(self, coinType, date, time):
         self.coinInfoDict["coin_type"] = coinType.name
@@ -19,7 +20,13 @@ class MongoModel:
 
     def setBoardInfo(self, response):
         self.coinInfoDict["mid_price"] = response.json()["mid_price"]
+        bidList = response.json()["bids"]
+        # if len(bidList) > 1000:
+        #     del bidList[1000:]
         self.coinInfoDict["bids"] = response.json()["bids"]
+        askList = response.json()["asks"]
+        # if len(askList) > 1000:
+        #     del askList[1000:]
         self.coinInfoDict["asks"] = response.json()["asks"]
 
     def setTickerInfo(self, response):
@@ -32,3 +39,4 @@ class MongoModel:
         self.coinInfoDict["ltp"] = response.json()["ltp"]
         self.coinInfoDict["volume"] = response.json()["volume"]
         self.coinInfoDict["volume_by_product"] = response.json()["volume_by_product"]
+

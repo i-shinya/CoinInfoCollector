@@ -9,6 +9,7 @@ import collections
 import bson
 import datetime
 from pymongo import MongoClient
+from pymongo.errors import BulkWriteError
 
 from externalConnect.external import ExternalConnector
 from trade.models import TradeManage, UserInfo
@@ -61,7 +62,7 @@ class MongoTestApi(APIView):
 
             # DBへ保存する
             dataList = [data.coinInfoDict]
-            result = collection.insert_many(dataList)
+            result = collection.insert_one(data.coinInfoDict)
 
             # TODO 売買判定を行う
 
@@ -73,5 +74,8 @@ class MongoTestApi(APIView):
             return Response(status=status.HTTP_200_OK)
         except RuntimeError:
             # API接続エラーの際は500エラーを返却する
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        except BulkWriteError:
+            # mongodb接続エラーの際は500エラーを返却する
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
