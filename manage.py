@@ -4,7 +4,7 @@ import sys
 import pymysql
 import logging
 
-from mymodule.mongoRepository.mongoDaoBase import MongoDaoBase
+from mymodule.mongo_repository.dao.mongoDaoBase import MongoDaoBase
 
 # mysqlと接続する
 pymysql.install_as_MySQLdb()

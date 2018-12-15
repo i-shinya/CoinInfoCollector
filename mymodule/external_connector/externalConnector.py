@@ -1,6 +1,6 @@
 import json
 import requests
-from externalConnect.baseConnector import BaseConnector
+from mymodule.external_connector.baseConnector import BaseConnector
 
 rootUrl = "https://api.bitflyer.com/"
 
