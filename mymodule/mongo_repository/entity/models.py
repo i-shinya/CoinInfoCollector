@@ -21,13 +21,14 @@ class MongoModel:
     def setBoardInfo(self, response):
         self.coinInfoDict["mid_price"] = response.json()["mid_price"]
         bidList = response.json()["bids"]
-        # if len(bidList) > 1000:
-        #     del bidList[1000:]
-        self.coinInfoDict["bids"] = response.json()["bids"]
+        # 板データが多すぎるので1,500件に削る
+        if len(bidList) > 1500:
+            del bidList[1500:]
+        self.coinInfoDict["bids"] = bidList
         askList = response.json()["asks"]
-        # if len(askList) > 1000:
-        #     del askList[1000:]
-        self.coinInfoDict["asks"] = response.json()["asks"]
+        if len(askList) > 1500:
+            del askList[1500:]
+        self.coinInfoDict["asks"] = askList
 
     def setTickerInfo(self, response):
         self.coinInfoDict["best_bid"] = response.json()["best_bid"]

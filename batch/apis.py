@@ -11,13 +11,13 @@ import datetime
 from pymongo import MongoClient
 from pymongo.errors import BulkWriteError
 
-from externalConnect.external import ExternalConnector
+from mymodule.external_connector.externalConnector import ExternalConnector
 from trade.models import TradeManage, UserInfo
 from mymodule.myenums import TradeCode, CoinType, TradeStatus
-from externalConnect.models import MongoModel
-from mymodule.mongoRepository.mongoDaoBase import MongoDaoBase
+from mymodule.mongo_repository.entity.models import MongoModel
+from mymodule.mongo_repository.dao.mongoDaoBase import MongoDaoBase
 
-# from mymodule.mongoRepository.tradeHistDao import TradeHistDao
+# from mymodule.mongo_repository.tradeHistDao import TradeHistDao
 
 # ビットフライヤーからマーケット情報を取得する
 class GetMarketApi(APIView):
