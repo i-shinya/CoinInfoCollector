@@ -26,11 +26,11 @@ if READ_ENV_FILE:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
-            "NAME": os.environ.get("MYSQL_NAME"),
-            "USER": os.environ.get("MYSQL_USER"),
-            "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
-            "HOST": os.environ.get("MYSQL_HOST"),
-            "POST": os.environ.get("MYSQL_PORT"),
+            "NAME": os.environ.get("MYSQL_NAME", default=""),
+            "USER": os.environ.get("MYSQL_USER", default=""),
+            "PASSWORD": os.environ.get("MYSQL_PASSWORD", default=""),
+            "HOST": os.environ.get("MYSQL_HOST", default=""),
+            "POST": os.environ.get("MYSQL_PORT", default=""),
         }
     }
 else:
