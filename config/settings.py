@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # DB設定の初期化
 DATABASES = None
 
-# 環境変数でDJANGO_READ_ENV_FILEをTrueにしておくと環境変数を読んでくれる。
+# 環境変数でDJANGO_HEROKU_FLAGをTrueにしておくと環境変数を読んでくれる。
 # Falseの場合はローカル設定ファイルを読み込む
 READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
 if READ_ENV_FILE:
