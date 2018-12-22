@@ -4,7 +4,7 @@
 
 version: 2
 jobs:
-  python_build:
+  python_deploy:
     docker:
       - image: circleci/python:3.7-stretch
 
@@ -20,9 +20,9 @@ jobs:
 
 workflows:
   version: 2
-  deploy:
+  python_flows:
     jobs:
-      - deploy:
+      - python_deploy:
           filters:
             branches:
               only: master
