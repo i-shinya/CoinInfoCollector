@@ -18,30 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # DB設定の初期化
 DATABASES = None
 
-# 環境変数でDJANGO_HEROKU_FLAGをTrueにしておくと環境変数を読んでくれる。
-# Falseの場合はローカル設定ファイルを読み込む
-READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
-if READ_ENV_FILE:
-    # heroku内でのみ使える
-    import django_heroku
-
-    django_heroku.settings(locals())
-else:
-    from .localsettings import *
-
-    # DB設定
-    # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": MYSQL_INFO["NAME"],
-            "USER": MYSQL_INFO["USER"],
-            "PASSWORD": MYSQL_INFO["PASSWORD"],
-            "HOST": MYSQL_INFO["HOST"],
-            "POST": MYSQL_INFO["PORT"],
-        }
-    }
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -98,6 +74,29 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
+# 環境変数でDJANGO_HEROKU_FLAGをTrueにしておくと環境変数を読んでくれる。
+# Falseの場合はローカル設定ファイルを読み込む
+READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
+if READ_ENV_FILE:
+    # heroku内でのみ使える
+    import django_heroku
+
+    django_heroku.settings(locals())
+else:
+    from .localsettings import *
+
+    # DB設定
+    # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": MYSQL_INFO["NAME"],
+            "USER": MYSQL_INFO["USER"],
+            "PASSWORD": MYSQL_INFO["PASSWORD"],
+            "HOST": MYSQL_INFO["HOST"],
+            "POST": MYSQL_INFO["PORT"],
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
