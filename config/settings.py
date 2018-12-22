@@ -20,19 +20,12 @@ DATABASES = None
 
 # 環境変数でDJANGO_READ_ENV_FILEをTrueにしておくと環境変数を読んでくれる。
 # Falseの場合はローカル設定ファイルを読み込む
-READ_ENV_FILE = os.environ.get("DJANGO_READ_ENV_FILE", default=False)
+READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
 if READ_ENV_FILE:
-    # DB設定
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": os.environ.get("MYSQL_NAME", default=""),
-            "USER": os.environ.get("MYSQL_USER", default=""),
-            "PASSWORD": os.environ.get("MYSQL_PASSWORD", default=""),
-            "HOST": os.environ.get("MYSQL_HOST", default=""),
-            "POST": os.environ.get("MYSQL_PORT", default=""),
-        }
-    }
+    # heroku内でのみ使える
+    import django_heroku
+
+    django_heroku.settings(locals())
 else:
     from .localsettings import *
 
@@ -76,6 +69,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
