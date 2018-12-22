@@ -76,7 +76,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # 環境変数でDJANGO_HEROKU_FLAGをTrueにしておくと環境変数を読んでくれる。
 # Falseの場合はローカル設定ファイルを読み込む
-READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=True)
+READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
 if READ_ENV_FILE:
     DATABASES = {
         "default": {
