@@ -78,6 +78,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Falseの場合はローカル設定ファイルを読み込む
 READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
 if READ_ENV_FILE:
+    DATABASES = {
+        "default": {
+            "ENGINE": "",
+            "NAME": "",
+            "USER": "",
+            "PASSWORD": "",
+            "HOST": "",
+            "POST": "",
+        }
+    }
     # heroku内でのみ使える
     import django_heroku
 
