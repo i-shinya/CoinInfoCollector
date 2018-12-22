@@ -11,11 +11,43 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from .dbsettings import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# DB設定の初期化
+DATABASES = None
+
+# 環境変数でDJANGO_READ_ENV_FILEをTrueにしておくと環境変数を読んでくれる。
+# Falseの場合はローカル設定ファイルを読み込む
+READ_ENV_FILE = os.environ.get("DJANGO_READ_ENV_FILE", default=False)
+if READ_ENV_FILE:
+    # DB設定
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ.get("MYSQL_NAME", default=""),
+            "USER": os.environ.get("MYSQL_USER", default=""),
+            "PASSWORD": os.environ.get("MYSQL_PASSWORD", default=""),
+            "HOST": os.environ.get("MYSQL_HOST", default=""),
+            "POST": os.environ.get("MYSQL_PORT", default=""),
+        }
+    }
+else:
+    from .localsettings import *
+
+    # DB設定
+    # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": MYSQL_INFO["NAME"],
+            "USER": MYSQL_INFO["USER"],
+            "PASSWORD": MYSQL_INFO["PASSWORD"],
+            "HOST": MYSQL_INFO["HOST"],
+            "POST": MYSQL_INFO["PORT"],
+        }
+    }
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -71,21 +103,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": MYSQL_INFO["NAME"],
-        "USER": MYSQL_INFO["USER"],
-        "PASSWORD": MYSQL_INFO["PASSWORD"],
-        "HOST": MYSQL_INFO["HOST"],
-        "POST": MYSQL_INFO["PORT"],
-    }
-}
 
 
 # Password validation
