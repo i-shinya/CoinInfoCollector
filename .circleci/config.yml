@@ -1,0 +1,30 @@
+# Environment variables
+# - HOST_NAME
+# - USER_NAME
+
+version: 2
+jobs:
+  python_build:
+    docker:
+      - image: circleci/python:3.7-stretch
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - add_ssh_keys:
+          fingerprints:
+            - "xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx:xx"
+
+      - run:
+          name: Start ssh-keyscan
+          command: |
+            ssh-keyscan ${HOST_NAME} >> ~/.ssh/known_hosts
+
+      - deploy:
+          name: Start master deploy
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                rsync -av --delete --exclude='.git' --exclude='.circleci' ./ ${USER_NAME}@${HOST_NAME}:/var/www/html/
+            fi
