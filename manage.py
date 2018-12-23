@@ -1,13 +1,18 @@
 #!/usr/bin/env python
 import os
 import sys
-import pymysql
+
 import logging
 
 from mymodule.mongo_repository.dao.mongoDaoBase import MongoDaoBase
 
-# mysqlと接続する
-pymysql.install_as_MySQLdb()
+# mysqlと接続する。環境変数によって、herokuでは読み込まない。
+HEROKU_FLAG = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
+if not HEROKU_FLAG:
+    import pymysql
+
+    pymysql.install_as_MySQLdb()
+
 # MongoDbと接続する
 MongoDaoBase.connectMongo()
 
