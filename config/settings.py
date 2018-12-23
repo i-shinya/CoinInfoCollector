@@ -25,7 +25,7 @@ DATABASES = None
 SECRET_KEY = "y@hpc1hpg%srkd%*^8xlcb89c&#x_dm+gs^ezs-ixjul5u=f_j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -78,6 +78,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Falseの場合はローカル設定ファイルを読み込む
 READ_ENV_FILE = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
 if READ_ENV_FILE:
+    DEBUG = False
     DATABASES = {
         "default": {
             "ENGINE": "",
@@ -95,6 +96,7 @@ if READ_ENV_FILE:
 else:
     from .localsettings import *
 
+    DEBUG = True
     # DB設定
     # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
     DATABASES = {
