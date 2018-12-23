@@ -9,7 +9,7 @@ from trade.models import TradeManage, UserInfo
 # apis.pyは他フレームワークのサービスのような使い方をする。
 class HelloApi(APIView):
     def get(self, request, format=None):
-        user = UserInfo.objects.filter(id=1)
+        # user = UserInfo.objects.filter(id=1)
         return Response(
             {"message": TradeCode.BIT_FLYER.value}, status=status.HTTP_200_OK
         )
