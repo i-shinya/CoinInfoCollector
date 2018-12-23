@@ -25,7 +25,7 @@ DATABASES = None
 SECRET_KEY = "y@hpc1hpg%srkd%*^8xlcb89c&#x_dm+gs^ezs-ixjul5u=f_j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -78,9 +78,6 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Falseの場合はローカル設定ファイルを読み込む
 HEROKU_FLAG = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
 if HEROKU_FLAG:
-    # herokuでは環境変数でデバッグモードを制御する
-    DEBUG_FLAG = os.environ.get("DEBUG_FLAG", default=True)
-
     DATABASES = {
         "default": {
             "ENGINE": "",
@@ -98,7 +95,6 @@ if HEROKU_FLAG:
 else:
     from .localsettings import *
 
-    DEBUG = True
     # DB設定
     # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
     DATABASES = {
