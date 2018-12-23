@@ -6,7 +6,7 @@ from rest_framework import status
 from mymodule.myenums import TradeCode
 from trade.models import TradeManage, UserInfo
 
-# Create your views here.
+# apis.pyは他フレームワークのサービスのような使い方をする。
 class HelloApi(APIView):
     def get(self, request, format=None):
         user = UserInfo.objects.filter(id=1)
