@@ -32,6 +32,7 @@ class GetMarketApi(APIView):
         return Response(response.json(), status=status.HTTP_200_OK)
 
 
+# TODO 処理をカプセル化する
 class MongoTestApi(APIView):
     def get(self, request, format=None):
         # 自身の売買情報を取得する
