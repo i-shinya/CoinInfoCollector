@@ -92,6 +92,8 @@ if HEROKU_FLAG:
     import django_heroku
 
     django_heroku.settings(locals())
+    # MySQLdbではsslmodeが使用できないようなのでオプションを削除する。
+    del DATABASES["default"]["OPTIONS"]["sslmode"]
 else:
     from .localsettings import *
 
