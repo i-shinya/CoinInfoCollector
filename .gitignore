@@ -10,3 +10,5 @@ db.sqlite3
 # 独自にgitignoreが必要なファイルを追加していく
 /config/localsettings.py
 .env
+
+/trade/migrations/*
