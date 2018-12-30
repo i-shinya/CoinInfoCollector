@@ -77,7 +77,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # 環境変数でDJANGO_HEROKU_FLAGをTrueにしておくと環境変数を読んでくれる。
 # Falseの場合はローカル設定ファイルを読み込む
 HEROKU_FLAG = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
-if HEROKU_FLAG:
+if HEROKU_FLAG: # heroku環境
     DATABASES = {
         "default": {
             "ENGINE": "",
@@ -88,13 +88,31 @@ if HEROKU_FLAG:
             "POST": "",
         }
     }
+    # mongodb設定
+    MONGODB_INFOS = {
+        "NAME": os.environ.get("MONGO_NAME", default=False),
+        "USER": os.environ.get("MONGO_USER", default=False),
+        "PASSWORD": os.environ.get("MONGO_PASSWORD", default=False),
+        "HOST": os.environ.get("MONGO_HOST", default=False),
+        "PORT": os.environ.get("MONGO_PORT", default=False),
+    }
     # heroku内でのみ使える
     import django_heroku
 
     django_heroku.settings(locals())
     # MySQLdbではsslmodeが使用できないようなのでオプションを削除する。
     del DATABASES["default"]["OPTIONS"]["sslmode"]
-else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.environ.get("MYSQL_NAME", default=False),
+            "USER": os.environ.get("MYSQL_USER", default=False),
+            "PASSWORD": os.environ.get("MYSQL_PASSWORD", default=False),
+            "HOST": os.environ.get("MYSQL_HOST", default=False),
+            "PORT": os.environ.get("MYSQL_PORT", default=False),
+        }
+    }
+else: # localhost環境
     from .localsettings import *
 
     # DB設定
@@ -109,6 +127,16 @@ else:
             "POST": MYSQL_INFO["PORT"],
         }
     }
+    # mongodb設定
+    MONGODB_INFOS = {
+        "NAME": MONGO_INFO["NAME"],
+        "USER": MONGO_INFO["USER"],
+        "PASSWORD": MONGO_INFO["PASSWORD"],
+        "HOST": MONGO_INFO["HOST"],
+        "PORT": MONGO_INFO["PORT"],
+    }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
