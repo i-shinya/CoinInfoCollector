@@ -12,7 +12,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 sched = BackgroundScheduler()
 
 
-@sched.scheduled_job("interval", minutes=5)
+@sched.scheduled_job("interval", minutes=1)
 def shedule():
     service = apis.BatchScheduleServise()
     service.scheduleAction()
