@@ -3,7 +3,7 @@ from . import apis
 
 urlpatterns = [
     path("get_market/", apis.GetMarketApi.as_view(), name="extermal-test"),
-    path("mongo_test/", apis.MongoTestApi.as_view(), name="mongo-test"),
+    path("auto_trade/", apis.AutoTradeApi.as_view(), name="auto-trade"),
 ]
 
 # 以下でbatchスケジューラーでの定義を行うスケジュールの定義
