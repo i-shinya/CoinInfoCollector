@@ -26,5 +26,5 @@ import os
 # 環境変数でスケジュールフラグがTrueの場合のみスケジュールを設定する。
 # 文字列で返却されるため文字列で判定
 if os.environ.get("SCHEDULE_FLAG", default=False) == "True":
-    print("[DEBUG]Scheduler start.")
+    print("[DEBUG]Scheduler read.")
     sched.start()
