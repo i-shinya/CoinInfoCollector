@@ -12,13 +12,15 @@ import os
 from mymodule.mongo_repository.dao.mongoDaoBase import MongoDaoBase
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
-
-application = get_wsgi_application()
-
 import pymysql
 
 # Mysqlと接続する
 pymysql.install_as_MySQLdb()
 # MongoDbと接続する
 MongoDaoBase.connectMongo()
+
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+
+application = get_wsgi_application()
+
