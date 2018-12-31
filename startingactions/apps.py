@@ -16,7 +16,7 @@ class StartingActions(AppConfig):
             print("[DEBUG]Scheduler read.")
             sched.start()
 
-        @sched.scheduled_job("interval", minutes=1)
+        @sched.scheduled_job("interval", minutes=5)
         def shedule():
             print("Scheduled job start.")
             from batch import apis
