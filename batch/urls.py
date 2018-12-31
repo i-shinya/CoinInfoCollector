@@ -12,7 +12,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 sched = BackgroundScheduler()
 
 
-@sched.scheduled_job("interval", minutes=5)
+@sched.scheduled_job("interval", minutes=1)
 def shedule():
     service = apis.BatchScheduleServise()
     service.scheduleAction()
@@ -21,6 +21,8 @@ def shedule():
 
 import os
 
+print(os.environ.get("SCHEDULE_FLAG", default=False))
+print(type(os.environ.get("SCHEDULE_FLAG", default=False)))
 # 環境変数でスケジュールフラグがTrueの場合のみスケジュールを設定する。
 # 文字列で返却されるため文字列で判定
 if os.environ.get("SCHEDULE_FLAG", default=False) == "True":
