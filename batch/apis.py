@@ -33,7 +33,7 @@ class GetMarketApi(APIView):
 
 
 # TODO 処理をカプセル化する
-class MongoTestApi(APIView):
+class AutoTradeApi(APIView):
     def get(self, request, format=None):
         # 自身の売買情報を取得する
         trade = list(TradeManage.objects.filter(tradeStatus=TradeStatus.ORDER.name))
