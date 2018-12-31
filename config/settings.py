@@ -94,7 +94,7 @@ if HEROKU_FLAG:  # heroku環境
         "USER": os.environ.get("MONGO_USER", default=False),
         "PASSWORD": os.environ.get("MONGO_PASSWORD", default=False),
         "HOST": os.environ.get("MONGO_HOST", default=False),
-        "PORT": os.environ.get("MONGO_PORT", default=False),
+        "PORT": int(os.environ.get("MONGO_PORT", default=False)),
     }
     # heroku内でのみ使える
     import django_heroku
@@ -107,7 +107,7 @@ if HEROKU_FLAG:  # heroku環境
             "USER": os.environ.get("MYSQL_USER", default=False),
             "PASSWORD": os.environ.get("MYSQL_PASSWORD", default=False),
             "HOST": os.environ.get("MYSQL_HOST", default=False),
-            "PORT": os.environ.get("MYSQL_PORT", default=False),
+            "PORT": int(os.environ.get("MYSQL_PORT", default=False)),
         }
     }
 else:  # localhost環境
