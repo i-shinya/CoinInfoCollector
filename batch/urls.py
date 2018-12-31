@@ -22,6 +22,6 @@ def shedule():
 import os
 
 # 環境変数でスケジュールフラグがTrueの場合のみスケジュールを設定する。
-if os.environ.get("SCHEDULE_FLAG", default=False) == True:
+if os.environ.get("SCHEDULE_FLAG", default=False) == "True":
     print("[DEBUG]Schedule job start.")
     sched.start()
