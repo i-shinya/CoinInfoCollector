@@ -12,8 +12,9 @@ class StartingActions(AppConfig):
         sched = BackgroundScheduler()
         # 環境変数でスケジュールフラグがTrueの場合のみスケジュールを設定する。
         # 文字列で返却されるため文字列で判定
-        print("[DEBUG]Scheduler read.")
-        sched.start()
+        if os.environ.get("SCHEDULE_FLAG", default=False) == "True":
+            print("[DEBUG]Scheduler read.")
+            sched.start()
 
         @sched.scheduled_job("interval", minutes=1)
         def shedule():
