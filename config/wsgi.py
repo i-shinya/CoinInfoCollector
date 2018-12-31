@@ -24,4 +24,5 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 application = get_wsgi_application()
 
-from mymodule.scheduler import scheduler
+# スケジューラーを読み込む
+from batch import scheduler
