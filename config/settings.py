@@ -77,7 +77,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 # 環境変数でDJANGO_HEROKU_FLAGをTrueにしておくと環境変数を読んでくれる。
 # Falseの場合はローカル設定ファイルを読み込む
 HEROKU_FLAG = os.environ.get("DJANGO_HEROKU_FLAG", default=False)
-if HEROKU_FLAG: # heroku環境
+if HEROKU_FLAG:  # heroku環境
     DATABASES = {
         "default": {
             "ENGINE": "",
@@ -100,8 +100,6 @@ if HEROKU_FLAG: # heroku環境
     import django_heroku
 
     django_heroku.settings(locals())
-    # MySQLdbではsslmodeが使用できないようなのでオプションを削除する。
-    del DATABASES["default"]["OPTIONS"]["sslmode"]
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",
@@ -112,7 +110,7 @@ if HEROKU_FLAG: # heroku環境
             "PORT": os.environ.get("MYSQL_PORT", default=False),
         }
     }
-else: # localhost環境
+else:  # localhost環境
     from .localsettings import *
 
     # DB設定
@@ -135,7 +133,6 @@ else: # localhost環境
         "HOST": MONGO_INFO["HOST"],
         "PORT": MONGO_INFO["PORT"],
     }
-
 
 
 # Password validation
