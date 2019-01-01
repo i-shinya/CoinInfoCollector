@@ -32,7 +32,7 @@ class GetMarketApi(APIView):
         return Response(response.json(), status=status.HTTP_200_OK)
 
 
-# 動作確認用API、herokuでスケジュラーを読み込ませるためにも用いる。
+# 動作確認用API
 class TestApi(APIView):
     def get(self, request, format=None):
         return Response({"message": "excute test api"}, status=status.HTTP_200_OK)
