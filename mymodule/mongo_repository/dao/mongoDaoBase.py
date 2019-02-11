@@ -16,8 +16,8 @@ class MongoDaoBase:
         cls.client = MongoClient(
             MONGODB_INFOS["HOST"],
             MONGODB_INFOS["PORT"],
-            username=MONGODB_INFOS["USER"],
-            password=MONGODB_INFOS["PASSWORD"],
+            # username=MONGODB_INFOS["USER"],
+            # password=MONGODB_INFOS["PASSWORD"],
             authSource=MONGODB_INFOS["NAME"],
             authMechanism="SCRAM-SHA-256",
         )
