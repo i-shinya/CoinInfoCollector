@@ -13,10 +13,11 @@ class MongoModel:
     def __init__(self):
         self.coinInfoDict = dict()
 
-    def setCommonInfo(self, coinType, date, time):
+    def setCommonInfo(self, coinType, date, time, datetime_str):
         self.coinInfoDict["coin_type"] = coinType.name
         self.coinInfoDict["date"] = date
         self.coinInfoDict["time"] = time
+        self.coinInfoDict["datetime"] = datetime_str
 
     def setBoardInfo(self, response):
         self.coinInfoDict["mid_price"] = response.json()["mid_price"]
