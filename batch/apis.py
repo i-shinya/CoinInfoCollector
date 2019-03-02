@@ -101,6 +101,7 @@ class BatchScheduleServise:
         datetime_now = datetime.datetime.now()
         date = datetime_now.strftime("%Y%m%d")
         time = datetime_now.strftime("%H:%M:%S")
+        datetime_str = datetime_now.strftime("%Y%m%d%H%M%S")
 
         # ビットコインのボードの現在状況と価格を取得する
         # 例外処理をする
@@ -111,7 +112,7 @@ class BatchScheduleServise:
 
             # DBへ保存するデータを生成する to mongo
             data = MongoModel()
-            data.setCommonInfo(coinType, date, time)
+            data.setCommonInfo(coinType, date, time, datetime_str)
             data.setBoardInfo(boardRes)
             data.setTickerInfo(tickerRes)
 
